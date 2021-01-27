@@ -1,0 +1,29 @@
+version: 0.2
+
+env:
+  secrets-manager:
+    STATIC_NEXTJS_BUCKET: "DeployEnvVars:STATIC_NEXTJS_BUCKET"
+    PRECREATED_CLOUDFRONT_ID: "DeployEnvVars:PRECREATED_CLOUDFRONT_ID"
+
+    # Set in the CodePipeline build project
+    # STATE_BUCKET
+    #
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12
+    commands:
+      - npm install
+      - npm install serverless -g
+  build:
+    commands:
+      - echo $STATIC_NEXTJS_BUCKET
+      - echo $PRECREATED_CLOUDFRONT_ID
+      - sed --in-place -e "s|\$STATIC_NEXTJS_BUCKET|$STATIC_NEXTJS_BUCKET|" serverless.yml
+      - sed --in-place -e "s/\$PRECREATED_CLOUDFRONT_ID/$PRECREATED_CLOUDFRONT_ID/" serverless.yml
+      - cat serverless.yml
+      #to purge the old .serverless contents and recreate them, comment out this line
+      - aws s3 sync s3://$STATE_BUCKET/.serverless .serverless --delete
+      - serverless
+      - aws s3 sync .serverless s3://$STATE_BUCKET/.serverless --delete
