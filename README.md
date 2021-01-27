@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). It is intended to be deployed using the [Next.js Serverless deployment project](https://github.com/guysqr/nextjs-infra-cdk)
 
 ## Getting Started
 
@@ -16,7 +16,7 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 
 ## Deploy on AWS
 
-Commit to "main" and it'll happen!
+If you've built the Next.js Serverless deployment project around this, just commit to "main" and it'll happen!
 
 ## Notes
 
